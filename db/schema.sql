@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS users(id BIGSERIAL PRIMARY KEY,email TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN ('labUser','billingOfficer')),created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS usage_records(id BIGSERIAL PRIMARY KEY,owner_id TEXT NOT NULL,resource_type TEXT NOT NULL,quantity NUMERIC(30,8) NOT NULL CHECK(quantity>0),unit TEXT NOT NULL,measured_at TIMESTAMPTZ NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS rate_versions(id BIGSERIAL PRIMARY KEY,resource_type TEXT NOT NULL,rate_per_unit NUMERIC(30,8) NOT NULL CHECK(rate_per_unit>=0),effective_from TIMESTAMPTZ NOT NULL,version TEXT NOT NULL UNIQUE,created_by TEXT NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT now(),UNIQUE(resource_type,effective_from));
+CREATE TABLE IF NOT EXISTS chargebacks(id UUID PRIMARY KEY,owner_id TEXT NOT NULL,payload JSONB NOT NULL,status TEXT NOT NULL,created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS workflow_states(chargeback_id UUID PRIMARY KEY,event_id UUID UNIQUE NOT NULL,owner_id TEXT NOT NULL,payload JSONB NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT now());
+ALTER TABLE workflow_states ADD COLUMN IF NOT EXISTS owner_id TEXT;

@@ -1,0 +1,1 @@
+{"version":2,"outputDirectory":"outputs","functions":{"api/**/*.js":{"maxDuration":30}},"rewrites":[{"source":"/workspace","destination":"/app.html"}]}

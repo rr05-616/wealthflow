@@ -1,0 +1,2 @@
+import {db,json,requireUser} from '../_lib.js';
+export default async function handler(req,res){const a=await requireUser(req);if(a.error)return json(res,a.error,a.error.status);const sql=db('CHARGEBACK');const rows=await sql`SELECT payload,owner_id FROM chargebacks WHERE id=${req.query.id} LIMIT 1`;if(!rows[0])return json(res,{error:'NOT_FOUND'},404);if(a.user.role!=='billingOfficer'&&String(rows[0].owner_id)!==String(a.user.id))return json(res,{error:'FORBIDDEN'},403);return json(res,rows[0].payload);}

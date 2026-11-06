@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101410">
+  <title>Sign in — Wealthflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>.signin-wrap{min-height:calc(100vh - 77px);display:grid;place-items:center;padding:42px 16px}.signin-card{width:min(100%,430px);padding:34px;background:linear-gradient(145deg,#1b231c,#151a16);border:1px solid var(--line);border-radius:12px;box-shadow:0 24px 80px #0004}.signin-card .eyebrow{font-size:9px}.signin-card h1{font:600 32px/1.2 var(--display);letter-spacing:-.05em;margin:18px 0 9px}.signin-card>p{color:#a7b1a3;font-size:12px;line-height:1.7;margin:0 0 25px}.signin-card label{display:block;font-size:10px;color:#c4cdc0;margin:15px 0 7px}.signin-card input,.signin-card select{width:100%;height:42px;border:1px solid rgba(226,239,221,.14);border-radius:6px;background:#121712;color:var(--white);padding:0 11px;font:12px var(--sans);outline:none}.signin-card input:focus,.signin-card select:focus{border-color:rgba(198,243,107,.55);box-shadow:0 0 0 3px rgba(198,243,107,.08)}.signin-card select option{background:#171d18}.signin-submit{width:100%;height:43px;border:0;border-radius:6px;background:var(--lime);color:#17200f;font:600 12px var(--sans);margin-top:22px;cursor:pointer}.signin-submit:hover{background:#d2ff7c}.signin-message{min-height:19px;font-size:10px;color:#e1c77f;margin-top:12px}.signin-note{border-top:1px solid var(--line);margin-top:18px;padding-top:15px;color:#768273;font:9px/1.7 var(--mono)}.back-link{display:inline-block;margin-top:18px;color:#b4c1ad;font-size:10px;text-decoration:none}.back-link:hover{color:var(--lime)}@media(max-width:500px){.signin-card{padding:25px 20px}}</style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Wealth<span class="brand-light">flow</span></span></a>
+      <a class="nav-signin" href="index.html">Back to overview <span aria-hidden="true">↗</span></a>
+    </header>
+    <main class="signin-wrap">
+      <section class="signin-card" aria-labelledby="signin-title">
+        <div class="eyebrow"><span class="pulse-dot"></span> SECURE ACCESS</div>
+        <h1 id="signin-title">Sign in to your workspace.</h1>
+        <p>Use your organization account to access usage records, rate versions, and reconciled chargebacks.</p>
+        <form id="signin-form">
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" autocomplete="username" placeholder="you@organization.org" required>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+          <button class="signin-submit" type="submit">Continue securely <span aria-hidden="true">→</span></button>
+          <div class="signin-message" id="signin-message" role="status" aria-live="polite"></div>
+        </form>
+        <div class="signin-note">SECURE SESSION · JWT STORED IN AN HTTPONLY COOKIE<br>Role-based access is enforced by the server for protected actions.</div>
+        <a class="back-link" href="index.html">← Back to system overview</a>
+      </section>
+    </main>
+  </div>
+  <script>document.querySelector('#signin-form').addEventListener('submit',async(event)=>{event.preventDefault();const message=document.querySelector('#signin-message');message.textContent='Signing in…';try{const response=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.querySelector('#email').value,password:document.querySelector('#password').value})});const data=await response.json();if(!response.ok)throw new Error(data.error==='INVALID_CREDENTIALS'?'Email or password is incorrect.':data.error||'Sign in failed.');location.href='/workspace';}catch(error){message.textContent=error.message;}});</script>
+</body>
+</html>

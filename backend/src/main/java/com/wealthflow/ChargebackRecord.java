@@ -1,0 +1,4 @@
+package com.wealthflow;
+import jakarta.persistence.*;import java.math.BigDecimal;
+@Entity @Table(name="chargeback",uniqueConstraints=@UniqueConstraint(name="uk_chargeback_event_id",columnNames="event_id"))
+public class ChargebackRecord {@Id private String id;@Column(name="event_id",nullable=false,unique=true) private String eventId;@Column(name="owner_id",nullable=false) private String ownerId;@Column(nullable=false,precision=19,scale=2) private BigDecimal billedTotal;protected ChargebackRecord(){}public ChargebackRecord(String id,String eventId,String ownerId,BigDecimal total){this.id=id;this.eventId=eventId;this.ownerId=ownerId;billedTotal=total;}public ChargebackRecord(String id,String eventId,BigDecimal total){this(id,eventId,"test-owner",total);}public String getId(){return id;}public String getEventId(){return eventId;}public String getOwnerId(){return ownerId;}public BigDecimal getBilledTotal(){return billedTotal;}}

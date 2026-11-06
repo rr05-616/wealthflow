@@ -1,0 +1,11 @@
+import {Kafka} from 'kafkajs';
+import {neon} from '@neondatabase/serverless';
+const brokers=(process.env.KAFKA_BROKERS||'').split(',').filter(Boolean);
+if(!brokers.length||!process.env.WORKFLOW_DATABASE_URL)throw new Error('Set KAFKA_BROKERS and WORKFLOW_DATABASE_URL');
+const kafka=new Kafka({clientId:'wealthflow-workflow',brokers});
+const consumer=kafka.consumer({groupId:'wealthflow-workflow-v1'});
+const sql=neon(process.env.WORKFLOW_DATABASE_URL);
+await consumer.connect();
+await consumer.subscribe({topic:process.env.KAFKA_TOPIC||'soa.s08.t24.events',fromBeginning:false});
+console.log('Wealthflow workflow consumer listening');
+await consumer.run({eachMessage:async({message})=>{if(!message.value)return;const event=JSON.parse(message.value.toString());if(event.eventType!=='ChargebackFinalized')return;if(!event.ownerId)throw new Error(`ChargebackFinalized ${event.eventId} is missing ownerId`);const payload={chargebackId:event.chargebackId,eventId:event.eventId,ownerId:String(event.ownerId),status:'FINALIZED',totalBilledAmount:event.totalBilledAmount,finalAllocatedAmount:event.finalAllocatedAmount,rateVersion:event.rateVersion,finalizedAt:event.finalizedAt,consumedAt:new Date().toISOString()};await sql`INSERT INTO workflow_states(chargeback_id,event_id,owner_id,payload) VALUES(${event.chargebackId},${event.eventId},${String(event.ownerId)},${JSON.stringify(payload)}::jsonb) ON CONFLICT(chargeback_id) DO UPDATE SET event_id=EXCLUDED.event_id,owner_id=EXCLUDED.owner_id,payload=EXCLUDED.payload,updated_at=now()`;console.log('Workflow persisted:',event.chargebackId);}});

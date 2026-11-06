@@ -1,0 +1,3 @@
+package com.wealthflow;
+import org.springframework.kafka.annotation.KafkaListener;import org.springframework.stereotype.Component;import org.springframework.transaction.annotation.Transactional;
+@Component public class EventConsumer {private final WorkflowRepository repository;public EventConsumer(WorkflowRepository r){repository=r;}@KafkaListener(topics="${wealthflow.topic:soa.s08.t24.events}",groupId="wealthflow-workflow")@Transactional public void consume(ChargebackEvent e){if(!"ChargebackFinalized".equals(e.eventType()))return;repository.findById(e.chargebackId()).orElseGet(()->repository.save(new WorkflowState(e)));}}

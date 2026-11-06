@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101410">
+  <meta name="description" content="Wealthflow allocates shared compute costs precisely and reconciles every final charge to the billed total.">
+  <title>Wealthflow — Every cent accounted for</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>.amount-entry{margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--lime);font:500 16px var(--display)}.amount-entry input{width:110px;border:0;border-bottom:1px solid rgba(198,243,107,.4);background:transparent;color:var(--lime);font:500 16px var(--display);text-align:right;outline:none}.amount-entry input:focus{border-color:var(--lime)}.amount-entry input::-webkit-inner-spin-button,.amount-entry input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.amount-entry input[type=number]{-moz-appearance:textfield}.calc-total .calc-period{margin-left:9px}@media(max-width:640px){.amount-entry input{width:90px}.calc-total .calc-period{font-size:7px}}</style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Wealthflow home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>Wealth<span class="brand-light">flow</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#architecture">Architecture</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero module" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse-dot"></span> SHARED COMPUTE · PRECISE BY DESIGN</div>
+          <h1 id="hero-title">Every Cent<br>Accounted For.<br><span>Every Charge Reconciled.</span></h1>
+          <p class="hero-description">A microservices-based system that accurately allocates shared compute costs, eliminates cumulative rounding drift, and ensures every final charge matches the exact billed total.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#how-it-works">Explore system <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-proof"><span class="proof-icon">✓</span><span>Deterministic allocation</span><span class="proof-separator">/</span><span>₹0.00 variance</span></div>
+        </div>
+
+        <div class="hero-visual" aria-label="Cost calculation flow from usage to exact total">
+          <div class="visual-topline"><span>ALLOCATION PIPELINE</span><span class="live-label"><i></i> LIVE MODEL</span></div>
+          <div class="pipeline">
+            <div class="pipeline-card step-usage"><span class="step-icon icon-usage">◉</span><span class="step-copy"><b>Usage</b><small>CPU · GPU · memory</small></span><span class="step-index">01</span></div>
+            <div class="pipeline-link"><i></i></div>
+            <div class="pipeline-card step-rate"><span class="step-icon icon-rate">↗</span><span class="step-copy"><b>Rate</b><small>Effective version</small></span><span class="step-index">02</span></div>
+            <div class="pipeline-link"><i></i></div>
+            <div class="pipeline-card step-share"><span class="step-icon icon-share">◫</span><span class="step-copy"><b>Exact share</b><small>High precision</small></span><span class="step-index">03</span></div>
+            <div class="pipeline-link"><i></i></div>
+            <div class="pipeline-card step-round"><span class="step-icon icon-round">⌁</span><span class="step-copy"><b>Smart rounding</b><small>Largest remainder</small></span><span class="step-index">04</span></div>
+            <div class="pipeline-link"><i></i></div>
+            <div class="pipeline-card step-total"><span class="step-icon icon-total">✓</span><span class="step-copy"><b>Exact total</b><small>₹100.00 reconciled</small></span><span class="total-check">✓</span></div>
+          </div>
+          <div class="visual-foot"><span>NO DRIFT</span><span class="foot-line"></span><span>NO MISSING PAISE</span></div>
+          <div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div>
+        </div>
+        <div class="hero-bottom-note"><span>01 / 03</span><span class="scroll-cue">A clearer way to account for shared compute <b>↓</b></span><span>INR · PAISE PRECISION</span></div>
+      </section>
+
+      <section class="work-module module" id="how-it-works" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <div><div class="eyebrow"><span class="eyebrow-number">02</span> THE ROUNDING ENGINE</div><h2 id="workflow-title">Small fractions.<br><span>Exact outcomes.</span></h2></div>
+          <p>Each charge is calculated at high precision. Only the final allocation is rounded, then reconciled to the billed total—down to the last paisa.</p>
+        </div>
+        <div class="bento-grid">
+          <article class="bento workflow-card">
+            <div class="card-heading"><div><div class="card-kicker">FROM METER TO SETTLED</div><h3>Four steps. One exact total.</h3></div><span class="card-chip">DETERMINISTIC</span></div>
+            <div class="workflow-steps">
+              <div class="workflow-step"><span class="workflow-num">01</span><span class="workflow-symbol symbol-meter">⌁</span><div><b>Collect usage</b><p>UsageMeter records compute resource usage.</p></div></div>
+              <div class="workflow-connector"><i></i></div>
+              <div class="workflow-step"><span class="workflow-num">02</span><span class="workflow-symbol symbol-rate">↗</span><div><b>Apply rate</b><p>RateCard selects the version effective at use.</p></div></div>
+              <div class="workflow-connector"><i></i></div>
+              <div class="workflow-step"><span class="workflow-num">03</span><span class="workflow-symbol symbol-calc">∑</span><div><b>Calculate shares</b><p>Chargeback calculates with high precision.</p></div></div>
+              <div class="workflow-connector"><i></i></div>
+              <div class="workflow-step"><span class="workflow-num">04</span><span class="workflow-symbol symbol-reconcile">✓</span><div><b>Reconcile</b><p>Residual paise go to the largest remainders.</p></div></div>
+            </div>
+            <div class="workflow-footer"><span>ROUND ONCE · AT FINAL ALLOCATION</span><span class="workflow-footer-dot">●</span><span>REPEATABLE EVERY TIME</span></div>
+          </article>
+
+          <article class="bento calculation-card" aria-label="Interactive rounding example">
+            <div class="calc-top"><div><div class="card-kicker">ONE PAISA, ACCOUNTED FOR</div><h3>Rounding in practice</h3></div><button class="replay-button" id="replay" type="button" aria-label="Replay rounding animation">↻</button></div>
+            <div class="calc-total"><label for="total-amount">Billed total</label><div class="amount-entry"><span>₹</span><input id="total-amount" type="number" min="0.01" max="99999999.99" step="0.01" value="100.00" inputmode="decimal" aria-label="Enter billed amount in rupees"></div><span class="calc-period">INR · EDIT AMOUNT</span></div>
+            <div class="share-table">
+              <div class="table-row table-head"><span>SHARE</span><span>EXACT</span><span>FLOOR</span></div>
+              <div class="table-row"><span><i class="consumer-dot dot-a"></i>A</span><span data-exact="0">₹33.333</span><span data-floor="0">₹33.33</span></div>
+              <div class="table-row"><span><i class="consumer-dot dot-b"></i>B</span><span data-exact="1">₹33.333</span><span data-floor="1">₹33.33</span></div>
+              <div class="table-row winner-row"><span><i class="consumer-dot dot-c"></i>C <em data-winner="2">largest remainder</em></span><span data-exact="2">₹33.334</span><span data-floor="2">₹33.33</span></div>
+            </div>
+            <div class="residual-line"><span>Residual after flooring</span><strong id="residual-amount">+ ₹0.01</strong></div>
+            <div class="final-allocation">
+              <div class="final-label"><span>FINAL ALLOCATION</span><span class="allocation-badge"><i></i> RECONCILED</span></div>
+              <div class="final-values"><span>A <b data-final="0">₹33.33</b></span><span>B <b data-final="1">₹33.33</b></span><span class="final-winner">C <b data-final="2">₹33.34</b></span></div>
+              <div class="reconciled-total"><span>✓ Reconciled</span><strong id="reconciled-total">₹100.00</strong></div>
+            </div>
+            <p class="calc-note"><span>✳</span> No money is lost. No extra money is created.</p>
+          </article>
+          <div class="bento principle-card"><span class="principle-mark">“</span><p>Rounding is a final step.<br><span>Reconciliation is a guarantee.</span></p><span class="principle-caption">LARGEST_REMAINDER_V1 · STABLE TIE-BREAKING</span></div>
+        </div>
+      </section>
+
+      <section class="architecture-module module" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-heading architecture-heading">
+          <div><div class="eyebrow"><span class="eyebrow-number">03</span> THE SYSTEM, IN ONE VIEW</div><h2 id="architecture-title">Independent services.<br><span>One trusted ledger.</span></h2></div>
+          <p>Every service owns its data. Finalized charges move through Kafka to a separate workflow service, with traceable events and protected access.</p>
+        </div>
+        <div class="architecture-bento">
+          <article class="bento arch-card">
+            <div class="arch-title"><div><div class="card-kicker">SERVICE ARCHITECTURE</div><h3>Clear boundaries. Auditable flow.</h3></div><span class="card-chip"><i></i> 4 SERVICES</span></div>
+            <div class="arch-diagram" role="img" aria-label="Client connects through API Gateway and Eureka to UsageMeter, RateCard, Chargeback, and SettlementWorkflow services. Each service owns a separate database. Chargeback publishes ChargebackFinalized to Kafka.">
+              <div class="arch-top-row"><div class="arch-node client-node"><span class="node-glyph">⌘</span><b>Client</b></div><span class="arch-downline"></span><div class="arch-node gateway-node"><span class="node-glyph">⇄</span><b>API Gateway</b><small>Routes · JWT roles</small></div><span class="arch-downline"></span><div class="arch-node eureka-node"><span class="node-glyph">◈</span><b>Eureka</b><small>Service discovery</small></div></div>
+              <div class="arch-branch"><i></i><i></i><i></i></div>
+              <div class="service-grid">
+                <div class="service-column"><div class="arch-node service-node"><span class="service-icon usage-service">⌁</span><b>UsageMeter</b><small>Usage records</small></div><span class="db-line"></span><div class="db-node"><span>▤</span> usage_meter_db</div></div>
+                <div class="service-column"><div class="arch-node service-node"><span class="service-icon rate-service">↗</span><b>RateCard</b><small>Effective rate versions</small></div><span class="db-line"></span><div class="db-node"><span>▤</span> rate_card_db</div></div>
+                <div class="service-column chargeback-column"><div class="arch-node service-node chargeback-node"><span class="service-icon charge-service">∑</span><b>Chargeback</b><small>Allocation · audit</small></div><span class="db-line"></span><div class="db-node"><span>▤</span> chargeback_db</div></div>
+              </div>
+              <div class="event-flow"><span class="event-source">ChargebackFinalized</span><span class="event-line"><i></i><i></i><i></i></span><span class="event-topic">soa.s08.t24.events</span><span class="event-line event-line-last"><i></i><i></i><i></i></span><span class="event-target">Workflow update</span></div>
+              <div class="workflow-service-row"><div class="service-column workflow-column"><div class="arch-node service-node"><span class="service-icon workflow-service-icon">✓</span><b>SettlementWorkflow</b><small>Idempotent event inbox</small></div><span class="db-line"></span><div class="db-node"><span>▤</span> settlement_workflow_db</div></div></div>
+              <div class="diagram-caption"><span>HTTP / DISCOVERY</span><span>EVENT STREAM</span><span>SEPARATE DATA OWNERSHIP</span></div>
+            </div>
+          </article>
+          <aside class="trust-stack">
+            <article class="bento trust-card"><span class="trust-icon trust-lock">⌑</span><div><span class="trust-kicker">ACCESS CONTROL</span><h3>Roles at every boundary.</h3><p>JWT roles scope each action. <b>labUser</b> reads owned records; <b>billingOfficer</b> manages rates and finalizes charges.</p></div><span class="trust-status">JWT · RBAC</span></article>
+            <article class="bento trust-card"><span class="trust-icon trust-db">▤</span><div><span class="trust-kicker">DATA OWNERSHIP</span><h3>One service. One store.</h3><p>Each service owns its database. No cross-service reads or shared business tables.</p></div><span class="trust-status">ISOLATED STORES</span></article>
+            <article class="bento trust-card"><span class="trust-icon trust-event">⟳</span><div><span class="trust-kicker">EVENT OWNERSHIP</span><h3>One publisher. A separate consumer.</h3><p>Chargeback publishes <b>ChargebackFinalized</b>; Workflow consumes it and persists the update in its own store.</p></div><span class="trust-status">AUDITABLE FLOW</span></article>
+          </aside>
+        </div>
+        <footer class="site-footer"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Wealth<span class="brand-light">flow</span></span></a><span>BUILT FOR SHARED COMPUTE. PRECISE TO THE PAISE.</span></footer>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
